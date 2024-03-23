@@ -17,7 +17,13 @@ def analysis_file(data):
                     "event" : 0,
                     "session" : []
                 }
-            
+            if not item["event_type"] in ["[AppsFlyer] Install", "Account Created", "App Opened", "App Closed"]:
+                final_result[userid]["event"] = final_result[userid]["event"] + 1
+                if not item["session_id"] in final_result[userid]["session"] :
+                    if item["session_id"] == -1 and item["session_id"] == None:
+                        pass
+                    else:
+                        final_result[userid]["session"].append(item["session_id"])
             if item["event_properties"].get("$revenue"):
                 final_result[userid]["total_amount"] = final_result[userid]["total_amount"] + float(item["event_properties"]["$revenue"])
                 final_result[userid]["purchase"] = final_result[userid]["purchase"] + 1
@@ -25,10 +31,6 @@ def analysis_file(data):
             if item["event_type"] == "Watched Video Ad":
                 final_result[userid]["video"] = final_result[userid]["video"] + 1
             
-            if not item["session_id"] in final_result[userid]["session"] :
-                final_result[userid]["session"].append(item["session_id"])
-            
-            final_result[userid]["event"] = final_result[userid]["event"] + 1
         except:
             pass
     

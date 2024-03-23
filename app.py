@@ -6,8 +6,8 @@ import os
 from datetime import date, timedelta, datetime
 
 def time_seireas():
-    start_dt = date(2022, 1, 1)
-    end_dt = date(2022, 12, 31)
+    start_dt = date(2023, 1, 1)
+    end_dt = date(2024, 3, 23)
     # difference between current and previous date
     delta = timedelta(days=1)
     # store the dates between two dates in a list
