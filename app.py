@@ -6,8 +6,8 @@ import os
 from datetime import date, timedelta, datetime
 
 def time_seireas():
-    start_dt = date(2022, 12, 19)
-    end_dt = date(2022, 12, 31)
+    start_dt = date(2021, 10, 19)
+    end_dt = date(2021, 12, 31)
     # difference between current and previous date
     delta = timedelta(days=1)
     # store the dates between two dates in a list
@@ -24,7 +24,9 @@ def get_data_processing(start, end):
     raw_data = get_data_from_amplitude(start=start, end=end)
     order_raw_data = ["000" for i in range(24)]
     for i in raw_data:
+        no = int(i.split("#")[-1].split(".json.gz")[0])
         time = int(i.split("#")[0].split("_")[-1])
+        index = time*(1+no) + no
         order_raw_data[time] = i
     order_raw_data = [i for i in order_raw_data if i != "000"]
     for log in order_raw_data:
