@@ -22,14 +22,20 @@ def time_seireas():
 def get_data_processing(start, end):
     print(f'data collecting {start} - {end}')
     raw_data = get_data_from_amplitude(start=start, end=end)
-    order_raw_data = ["000" for i in range(24)]
+    order_raw_data = []
+    for i in range(24):
+        order_raw_data.append([])
     for i in raw_data:
-        no = int(i.split("#")[-1].split(".json.gz")[0])
         time = int(i.split("#")[0].split("_")[-1])
-        index = time*(1+no) + no
-        order_raw_data[time] = i
-    order_raw_data = [i for i in order_raw_data if i != "000"]
-    for log in order_raw_data:
+        order_raw_data[time].append(i)
+    final_list =  []
+    for i in order_raw_data:
+        mk = ["000" for k in range(len(i))]
+        for y in i:
+            no = int(y.split("#")[-1].split(".json.gz")[0])
+            mk[no] = y
+        final_list.extend(mk)
+    for log in final_list:
         print(f'[Info] {log}')
         # file_path = os.path.join(log)
         data = get_extra_data_file(jsonfilename=log)

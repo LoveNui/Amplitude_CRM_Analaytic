@@ -6,7 +6,7 @@ def analysis_file(data):
 
     for item in data:
         amplitude_id = item["amplitude_id"]
-        if item.get(amplitude_id):
+        if final_result.get(amplitude_id):
             pass
         else:
             final_result[amplitude_id] = {
